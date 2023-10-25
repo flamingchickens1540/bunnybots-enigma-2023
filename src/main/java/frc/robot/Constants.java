@@ -25,4 +25,16 @@ public final class Constants {
     public static final int BACK_LEFT_KEY = 0;
     public static final int BACK_RIGHT_KEY = 0;
   }
+
+  public static class ElevatorConstants{
+    public static final int MOTOR_ID = 0;
+    public static final double ELEVATOR_KF = 0;
+    public static final double ELEVATOR_KP = 0;
+    public static final double ELEVATOR_KI = 0;
+    public static final double ELEVATOR_KD = 0;
+    public static final double ELEVATOR_CRUISE_VELOCITY = 0;
+    public static final double ELEVATOR_MAX_ACCELERATION = 0;
+
+
+  }
 }
