@@ -17,6 +17,7 @@ public final class Constants {
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kCopilotControllerPort = 0;
   }
 
   public static class DrivetrainConstants {
@@ -34,6 +35,8 @@ public final class Constants {
     public static final double ELEVATOR_KD = 0;
     public static final double ELEVATOR_CRUISE_VELOCITY = 0;
     public static final double ELEVATOR_MAX_ACCELERATION = 0;
+    public static final double MANUAL_SCALING = 0;
+    public static final double MANUAL_DEADBAND = 0;
 
 
   }

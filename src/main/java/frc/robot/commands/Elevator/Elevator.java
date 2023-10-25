@@ -18,7 +18,7 @@ public class Elevator extends SubsystemBase {
         motor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0));
      }
 
-     public void setPosition(){
+     public void setPosition(double position){
          //TODO: Write this
      }
 

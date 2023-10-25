@@ -11,6 +11,9 @@ import frc.robot.commands.Drivetrain.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Elevator.Elevator;
+import frc.robot.commands.Elevator.ElevatorManual;
+import frc.robot.commands.Elevator.ElevatorPosition;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,14 +26,21 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  private final CommandXboxController m_copilotController =
+      new CommandXboxController(OperatorConstants.kCopilotControllerPort);
   private final Drivetrain m_Drivetrain =
       new Drivetrain();
+  private final Elevator m_Elevator =
+      new Elevator();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+    m_Elevator.setDefaultCommand(new ElevatorManual(m_Elevator, m_copilotController));
+
   }
 
   /**
@@ -47,6 +57,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    m_copilotController.rightBumper().onTrue(new ElevatorPosition(m_Elevator, 0));
   }
 
   /**
