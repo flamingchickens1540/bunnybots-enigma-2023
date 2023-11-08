@@ -8,6 +8,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos.Autos;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
+
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -24,13 +28,22 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final Drivetrain m_Drivetrain =
-      new Drivetrain();
+      new Drivetrain(new Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+
+    // AutoBuilder.configureRamsete(
+    //     this::getPose, // Robot pose supplier
+    //     this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+    //     this::getCurrentSpeeds, // Current ChassisSpeeds supplier
+    //     this::drive, // Method that will drive the robot given ChassisSpeeds
+    //     new ReplanningConfig(), // Default path replanning config. See the API for the options here
+    //     this // Reference to this subsystem to set requirements
+    // );
   }
 
   /**
@@ -55,6 +68,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return new PathPlannerAuto("RamAuto");
   }
 }
