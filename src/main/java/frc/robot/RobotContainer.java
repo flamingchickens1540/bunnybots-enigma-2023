@@ -4,7 +4,15 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Autos.Autos;
+import frc.robot.commands.Drivetrain.DriveCommand;
+import frc.robot.commands.Drivetrain.Drivetrain;
+
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -36,7 +44,8 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   private final Drivetrain m_Drivetrain =
-      new Drivetrain();
+          new Drivetrain(new Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
+
   private final Elevator m_Elevator =
       new Elevator();
   private final PneumaticsControlModule m_pcm =
@@ -55,8 +64,14 @@ public class RobotContainer {
 //    m_Elevator.setDefaultCommand(new ElevatorManual(m_Elevator, m_copilotController));
     m_pcm.enableCompressorDigital();
 
-
-
+    // AutoBuilder.configureRamsete(
+    //     this::getPose, // Robot pose supplier
+    //     this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+    //     this::getCurrentSpeeds, // Current ChassisSpeeds supplier
+    //     this::drive, // Method that will drive the robot given ChassisSpeeds
+    //     new ReplanningConfig(), // Default path replanning config. See the API for the options here
+    //     this // Reference to this subsystem to set requirements
+    // );
   }
 
   /**
@@ -93,6 +108,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return new PathPlannerAuto("RamAuto");
   }
 }
