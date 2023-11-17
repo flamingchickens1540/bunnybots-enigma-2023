@@ -8,6 +8,7 @@ import frc.robot.Constants;
 public class ElevatorManual extends CommandBase {
     private final Elevator elevator;
     private CommandXboxController controller;
+
     public ElevatorManual(Elevator elevator, CommandXboxController controller){
         this.elevator = elevator;
         this.controller = controller;
@@ -18,7 +19,8 @@ public class ElevatorManual extends CommandBase {
     public void execute() {
         double positionMod = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
         positionMod *= Constants.ElevatorConstants.MANUAL_SCALING;
-        positionMod = MathUtil.applyDeadband(positionMod, Constants.ElevatorConstants.MANUAL_DEADBAND);
-        elevator.setPosition(elevator.getPosition() + positionMod);
+        positionMod = Math.abs(positionMod) > Constants.ElevatorConstants.MANUAL_DEADZONE ? positionMod : 0;
+
+        elevator.setVelocity(positionMod);
     }
 }
