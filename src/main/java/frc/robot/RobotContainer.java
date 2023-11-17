@@ -4,16 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos.Autos;
-import frc.robot.commands.Drivetrain.DriveCommand;
-import frc.robot.commands.Drivetrain.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Drivetrain.DriveCommand;
+import frc.robot.commands.Drivetrain.Drivetrain;
 import frc.robot.commands.Elevator.Elevator;
+import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorManual;
-import frc.robot.commands.Elevator.ElevatorPosition;
+import frc.robot.commands.Elevator.ElevatorUp;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,7 +57,8 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_copilotController.rightBumper().onTrue(new ElevatorPosition(m_Elevator, 0));
+    m_copilotController.rightBumper().onTrue(new ElevatorDown(m_Elevator));
+    m_copilotController.rightBumper().onTrue(new ElevatorUp(m_Elevator));
   }
 
   /**

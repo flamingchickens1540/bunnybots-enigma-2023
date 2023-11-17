@@ -1,13 +1,12 @@
 package frc.robot.commands.Elevator;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
 public class ElevatorManual extends CommandBase {
     private final Elevator elevator;
-    private CommandXboxController controller;
+    private final CommandXboxController controller;
 
     public ElevatorManual(Elevator elevator, CommandXboxController controller){
         this.elevator = elevator;
@@ -17,10 +16,10 @@ public class ElevatorManual extends CommandBase {
 
     @Override
     public void execute() {
-        double positionMod = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
-        positionMod *= Constants.ElevatorConstants.MANUAL_SCALING;
-        positionMod = Math.abs(positionMod) > Constants.ElevatorConstants.MANUAL_DEADZONE ? positionMod : 0;
+        double velocity = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
+        velocity *= Constants.ElevatorConstants.MANUAL_SCALING;
+        velocity = Math.abs(velocity) > Constants.ElevatorConstants.MANUAL_DEADZONE ? velocity : 0;
 
-        elevator.setVelocity(positionMod);
+        elevator.setVelocity(velocity);
     }
 }

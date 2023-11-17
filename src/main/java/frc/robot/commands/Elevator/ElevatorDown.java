@@ -20,7 +20,7 @@ public class ElevatorDown extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        return elevator.topLimitHit();
+        return elevator.bottomLimitHit();
     }
     
     @Override
