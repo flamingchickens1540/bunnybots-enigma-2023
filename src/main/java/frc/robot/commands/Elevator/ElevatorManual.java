@@ -19,7 +19,8 @@ public class ElevatorManual extends CommandBase {
         double velocity = controller.getRightTriggerAxis() - controller.getLeftTriggerAxis();
         velocity *= Constants.ElevatorConstants.MANUAL_SCALING;
         velocity = Math.abs(velocity) > Constants.ElevatorConstants.MANUAL_DEADZONE ? velocity : 0;
-
-        elevator.setVelocity(velocity);
+        if ((velocity > 0 && !elevator.topLimitHit()) || (velocity < 0 && !elevator.bottomLimitHit())) {
+            elevator.setVelocity(velocity);
+        }
     }
 }

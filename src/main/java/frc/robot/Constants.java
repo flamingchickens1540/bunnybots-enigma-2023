@@ -37,7 +37,7 @@ public final class Constants {
     public static final double ELEVATOR_ASCENSION_VELOCITY = 0.5;
     public static final double ELEVATOR_DESCENSION_VELOCITY = -0.5;
     public static final double ELEVATOR_MAX_ACCELERATION = 0;
-    public static final double MANUAL_SCALING = 0;
+    public static final double MANUAL_SCALING = 0.3;
     public static final double MANUAL_DEADZONE = 0.1;
 
 
