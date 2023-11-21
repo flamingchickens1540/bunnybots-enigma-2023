@@ -24,8 +24,8 @@ public class Drivetrain extends SubsystemBase{
 
         frontLeft.setInverted(true);
         backLeft.setInverted(true);
-        frontLeft.setInverted(false);
-        backLeft.setInverted(false);
+        frontRight.setInverted(false);
+        backRight.setInverted(false);
     }
 
     public void set(double percentRight, double percentLeft) {
