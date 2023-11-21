@@ -17,28 +17,28 @@ public final class Constants {
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kCopilotControllerPort = 0;
+    public static final int kCopilotControllerPort = 1;
   }
 
   public static class DrivetrainConstants {
-    public static final int FRONT_LEFT_KEY = 0;
-    public static final int FRONT_RIGHT_KEY = 0;
-    public static final int BACK_LEFT_KEY = 0;
-    public static final int BACK_RIGHT_KEY = 0;
+    public static final int FRONT_LEFT_KEY = 2;
+    public static final int FRONT_RIGHT_KEY = 4;
+    public static final int BACK_LEFT_KEY = 1;
+    public static final int BACK_RIGHT_KEY = 3;
   }
 
   public static class ElevatorConstants{
-    public static final int MOTOR_ID = 0;
+    public static final int MOTOR_ID = 5;
     public static final double ELEVATOR_KF = 0;
     public static final double ELEVATOR_KP = 0;
     public static final double ELEVATOR_KI = 0;
     public static final double ELEVATOR_KD = 0;
     public static final double ELEVATOR_CRUISE_VELOCITY = 0;
-    public static final double ELEVATOR_ASCENSION_VELOCITY = 0;
-    public static final double ELEVATOR_DESCENSION_VELOCITY = 0;
+    public static final double ELEVATOR_ASCENSION_VELOCITY = 0.5;
+    public static final double ELEVATOR_DESCENSION_VELOCITY = -0.5;
     public static final double ELEVATOR_MAX_ACCELERATION = 0;
     public static final double MANUAL_SCALING = 0;
-    public static final double MANUAL_DEADZONE = 0;
+    public static final double MANUAL_DEADZONE = 0.1;
 
 
   }

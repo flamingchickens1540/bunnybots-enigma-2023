@@ -58,7 +58,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_copilotController.rightBumper().onTrue(new ElevatorDown(m_Elevator));
-    m_copilotController.rightBumper().onTrue(new ElevatorUp(m_Elevator));
+    m_copilotController.leftBumper().onTrue(new ElevatorUp(m_Elevator));
   }
 
   /**

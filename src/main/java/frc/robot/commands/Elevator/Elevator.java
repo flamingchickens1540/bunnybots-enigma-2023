@@ -1,31 +1,33 @@
 package frc.robot.commands.Elevator;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.SparkMaxLimitSwitch;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
 
-     private final TalonFX motor = new TalonFX(Constants.ElevatorConstants.MOTOR_ID);
-     
-     public Elevator(){
-        motor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40, 0));
-     }
+    private final CANSparkMax motor = new CANSparkMax(Constants.ElevatorConstants.MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
 
 
 
      public void setVelocity(double velocity){
-        motor.set(ControlMode.PercentOutput, velocity);
+        motor.set(velocity);
+     }
+
+     public void periodic() {
+         SmartDashboard.putBoolean("Elevator/frontLimitSwitch", topLimitHit());
+         SmartDashboard.putBoolean("Elevator/backLimitSwitch", bottomLimitHit());
      }
 
      public boolean topLimitHit(){
-         return motor.isFwdLimitSwitchClosed()==1;
+         return motor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen).isPressed();
      }
 
      public boolean bottomLimitHit(){
-         return motor.isRevLimitSwitchClosed()==1;
+         return motor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen).isPressed();
      }
 
 

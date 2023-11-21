@@ -15,7 +15,7 @@ public class ElevatorUp extends CommandBase{
 
     @Override
     public void initialize() {
-        elevator.setVelocity(Constants.ElevatorConstants.ELEVATOR_DESCENSION_VELOCITY);
+        elevator.setVelocity(Constants.ElevatorConstants.ELEVATOR_ASCENSION_VELOCITY);
     }
 
     @Override
