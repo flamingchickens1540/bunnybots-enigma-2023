@@ -37,8 +37,8 @@ public class Drivetrain extends SubsystemBase{
 
         frontLeft.setInverted(true);
         backLeft.setInverted(true);
-        frontLeft.setInverted(false);
-        backLeft.setInverted(false);
+        frontRight.setInverted(false);
+        backRight.setInverted(false);
 
         this.pigeon = pigeon;
         odometry = new DifferentialDriveOdometry(pigeon.getRotation2d(), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition());
