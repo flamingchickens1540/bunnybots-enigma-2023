@@ -26,24 +26,16 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (controller.getAButtonPressed()) {
-            invertDrive = !invertDrive;
-        }
+        if (controller.getAButtonPressed()) {invertDrive = !invertDrive;}
 
         leftInput = controller.getLeftY();
-        leftInput = Math.abs(leftInput) > Constants.DEADZONE ? leftInput : 0;
-        leftInput += controller.getLeftTriggerAxis() - controller.getRightTriggerAxis();
-        leftInput *= 0.5;
+        leftInput = Math.abs(leftInput) > Constants.DEADZONE ? 0.5*leftInput : 0;
+        leftInput = invertDrive ? -leftInput : leftInput;
 
         rightInput = controller.getRightY();
-        rightInput = Math.abs(rightInput) > Constants.DEADZONE ? rightInput : 0;
-        rightInput += controller.getLeftTriggerAxis() - controller.getRightTriggerAxis();
-        rightInput *= 0.5;
+        rightInput = Math.abs(rightInput) > Constants.DEADZONE ? 0.5*rightInput : 0;
+        rightInput = invertDrive ? -rightInput : rightInput;
 
-        if (invertDrive) {
-            drivetrain.set(-leftInput, -rightInput);
-        } else {
-            drivetrain.set(rightInput, leftInput);
-        }
+        drivetrain.set(leftInput, rightInput);
     }
 }

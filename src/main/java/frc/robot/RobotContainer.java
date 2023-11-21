@@ -7,11 +7,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos.Autos;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
 
-import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
@@ -43,11 +42,8 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  private final Drivetrain m_Drivetrain =
-          new Drivetrain(new Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
-
   private final Elevator m_Elevator =
-      new Elevator();
+          new Elevator();
   private final PneumaticsControlModule m_pcm =
           new PneumaticsControlModule(OperatorConstants.kPCM_ID);
   private final Shooter m_shooter =
@@ -55,6 +51,8 @@ public class RobotContainer {
   private final Grabber m_grabber =
           new Grabber(m_pcm);
 
+  private final Drivetrain m_Drivetrain =
+          new Drivetrain(new WPI_Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
