@@ -1,7 +1,5 @@
 package frc.robot.commands.Drivetrain;
 
-import javax.security.auth.x500.X500Principal;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,9 +26,7 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (controller.getAButtonPressed()) {
-            invertDrive = !invertDrive;
-        }
+        if (controller.getAButtonPressed()) {invertDrive = !invertDrive;}
 
         leftInput = controller.getLeftY();
         leftInput = Math.abs(leftInput) > Constants.DEADZONE ? 0.5*leftInput : 0;
@@ -38,7 +34,7 @@ public class DriveCommand extends CommandBase {
 
         rightInput = controller.getRightY();
         rightInput = Math.abs(rightInput) > Constants.DEADZONE ? 0.5*rightInput : 0;
-        rightInput = invertDrive ? -rightInput : leftInput;
+        rightInput = invertDrive ? -rightInput : rightInput;
 
         drivetrain.set(rightInput, leftInput);
     }

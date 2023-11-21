@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.ReplanningConfig;
 
@@ -23,10 +23,10 @@ public class Drivetrain extends SubsystemBase{
     public TalonFX backRight = new TalonFX(Constants.DrivetrainConstants.BACK_RIGHT_KEY);
 
     private final DifferentialDriveOdometry odometry;
-    private final Pigeon2 pigeon;
+    private final WPI_Pigeon2 pigeon;
 
 
-    public Drivetrain(Pigeon2 pigeon) {
+    public Drivetrain(WPI_Pigeon2 pigeon) {
         backLeft.follow(frontLeft);
         backRight.follow(frontRight);
 
@@ -41,7 +41,7 @@ public class Drivetrain extends SubsystemBase{
         backLeft.setInverted(false);
 
         this.pigeon = pigeon;
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(pigeon.getYaw()), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition());
+        odometry = new DifferentialDriveOdometry(pigeon.getRotation2d(), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition());
 
         AutoBuilder.configureRamsete(
             this::getPose, // Robot pose supplier
@@ -51,12 +51,14 @@ public class Drivetrain extends SubsystemBase{
             new ReplanningConfig(), // Default path replanning config. See the API for the options here
             this // Reference to this subsystem to set requirements
         );
+
+        
     }
 
     @Override
     public void periodic() {
         odometry.update(
-            Rotation2d.fromDegrees(pigeon.getYaw()),
+            pigeon.getRotation2d(),
             frontLeft.getSelectedSensorPosition()/Constants.DrivetrainConstants.ENCODER_TICKS_PER_METER,
             frontRight.getSelectedSensorPosition()/Constants.DrivetrainConstants.ENCODER_TICKS_PER_METER
         );
@@ -74,10 +76,7 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void resetOdometry(Pose2d pose){
-        frontLeft.setSelectedSensorPosition(0);
-        frontRight.setSelectedSensorPosition(0);
-        zeroHeading();
-        odometry.resetPosition(new Rotation2d(-Math.PI/2), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition(), pose);
+        odometry.resetPosition(pigeon.getRotation2d(), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition(), pose);
         // new Rotation2d()
     }
 
