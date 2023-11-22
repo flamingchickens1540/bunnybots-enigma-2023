@@ -12,7 +12,7 @@ public class Shooter extends SubsystemBase {
 
     public Shooter() {
         for (int i = 0; i < 5; i++) {
-            shooters[i] = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ShooterConstants.SHOOTER_IDS[i]);
+            shooters[i] = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.ShooterConstants.SHOOTER_ID[i]);
         }
     }
 

@@ -44,7 +44,13 @@ public final class Constants {
   }
 
   public static class ShooterConstants{
-    public static final int[] SHOOTER_IDS = new int[] {0, 0, 0, 0, 0};
+    public static final int[] SHOOTER_ID = new int[] {0, 0, 0, 0, 0};
+  }
+
+  public static class GrabberConstants{
+    public static final int RIGHT_GRABBER_ID = 0;
+    public static final int LEFT_GRABBER_ID = 0;
+
   }
 
 }
