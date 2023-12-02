@@ -15,6 +15,10 @@ public class ShooterCommand extends SequentialCommandGroup {
                 shooter.getRetractCommand(index)
         );
 
+    }
 
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
     }
 }
