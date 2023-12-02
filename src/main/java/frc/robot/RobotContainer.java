@@ -30,7 +30,8 @@ public class RobotContainer {
 // run enable compressor
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-  private final CommandGenericHID m_copilotController = new CommandGenericHID(2);
+  private final CommandGenericHID m_copilotController =
+          new CommandGenericHID(OperatorConstants.kCopilotControllerPort);
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
@@ -39,7 +40,7 @@ public class RobotContainer {
   private final Elevator m_Elevator =
       new Elevator();
   private final PneumaticsControlModule m_pcm =
-          new PneumaticsControlModule(25);
+          new PneumaticsControlModule(OperatorConstants.kPCM_ID);
   private final Shooter m_shooter =
           new Shooter(m_pcm);
   private final Grabber m_grabber =
@@ -72,14 +73,10 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-
-    // first button is 0,1,3,2,4
-    m_copilotController.button(1).onTrue(new ShooterCommand(m_shooter, 0));
-    m_copilotController.button(2).onTrue(new ShooterCommand(m_shooter, 1));
-    m_copilotController.button(4).onTrue(new ShooterCommand(m_shooter, 2));
-    m_copilotController.button(3).onTrue(new ShooterCommand(m_shooter, 3));
-    m_copilotController.button(5).onTrue(new ShooterCommand(m_shooter, 4));
-    m_copilotController.axisGreaterThan(4, 0.75).onTrue(new GrabberCommand(m_grabber));
+    for (int i = 0; i < 5; i++) {
+      m_copilotController.button(Constants.ShooterConstants.GUITAR_BUTTON_ID[i]).onTrue(new ShooterCommand(m_shooter, i));
+    }
+    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new GrabberCommand(m_grabber));
     m_copilotController.povDown().onTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().onTrue(new ElevatorUp(m_Elevator));
 

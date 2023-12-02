@@ -10,13 +10,8 @@ public class Grabber extends SubsystemBase {
     public Grabber(PneumaticsControlModule pcm) {
         claw = pcm.makeSolenoid(Constants.GrabberConstants.GRABBER_ID);
     }
-    public void openGrabber() {
-        claw.set(false);
-    }
-
-    public void closeGrabber() {
-        claw.set(true);
-
+    public void set(boolean setValue) {
+        claw.set(setValue);
     }
 
     public boolean get() {

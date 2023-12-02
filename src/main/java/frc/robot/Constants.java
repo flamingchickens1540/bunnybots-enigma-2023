@@ -17,7 +17,8 @@ public final class Constants {
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kCopilotControllerPort = 1;
+    public static final int kCopilotControllerPort = 2;
+    public static final int kPCM_ID = 25;
   }
 
   public static class DrivetrainConstants {
@@ -45,10 +46,10 @@ public final class Constants {
 
   public static class ShooterConstants{
     public static final int[] SHOOTER_ID = new int[] {1, 3, 2, 5, 6};
+    public static final int[] GUITAR_BUTTON_ID = new int[] {1, 2, 4, 3, 5};
+    public static final double GUITAR_DONGLE_DEADZONE = 0.5;
   }
-//1-0, 2-2, 3-3, 4-1, 5-claw
-  // runswhendisabled
-  // claw = 7
+
   public static class GrabberConstants{
     public static final int GRABBER_ID = 7;
 
