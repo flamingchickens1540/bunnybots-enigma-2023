@@ -13,7 +13,46 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static double DEADZONE = 0.1;
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kCopilotControllerPort = 2;
+    public static final int kPCM_ID = 25;
   }
+
+  public static class DrivetrainConstants {
+    public static final int FRONT_LEFT_KEY = 2;
+    public static final int FRONT_RIGHT_KEY = 4;
+    public static final int BACK_LEFT_KEY = 1;
+    public static final int BACK_RIGHT_KEY = 3;
+  }
+
+  public static class ElevatorConstants{
+    public static final int MOTOR_ID = 5;
+    public static final double ELEVATOR_KF = 0;
+    public static final double ELEVATOR_KP = 0;
+    public static final double ELEVATOR_KI = 0;
+    public static final double ELEVATOR_KD = 0;
+    public static final double ELEVATOR_CRUISE_VELOCITY = 0;
+    public static final double ELEVATOR_ASCENSION_VELOCITY = 0.5;
+    public static final double ELEVATOR_DESCENSION_VELOCITY = -0.5;
+    public static final double ELEVATOR_MAX_ACCELERATION = 0;
+    public static final double MANUAL_SCALING = 0.3;
+    public static final double MANUAL_DEADZONE = 0.1;
+
+
+  }
+
+  public static class ShooterConstants{
+    public static final int[] SHOOTER_ID = new int[] {1, 3, 2, 5, 6};
+    public static final int[] GUITAR_BUTTON_ID = new int[] {1, 2, 4, 3, 5};
+    public static final double GUITAR_DONGLE_DEADZONE = 0.5;
+  }
+
+  public static class GrabberConstants{
+    public static final int GRABBER_ID = 7;
+
+  }
+
 }
