@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
@@ -22,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -66,7 +70,10 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return new PathPlannerAuto("RamAuto");
+  public Command getAutonomousCommand(String input) {
+    PathPlannerPath path = PathPlannerPath.fromPathFile(input);
+
+    // Create a path following command using AutoBuilder. This will also trigger event markers.
+    return AutoBuilder.followPathWithEvents(path);
   }
 }
