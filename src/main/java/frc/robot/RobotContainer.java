@@ -4,14 +4,12 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
-
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -34,7 +32,6 @@ import frc.robot.commands.Shooter.ShooterCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-// run enable compressor
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   private final CommandGenericHID m_copilotController =
@@ -105,7 +102,11 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return new PathPlannerAuto("RamAuto");
+  public Command getAutonomousCommand(String input) {
+    return null;
+//    PathPlannerPath path = PathPlannerPath.fromPathFile(input);
+
+    // Create a path following command using AutoBuilder. This will also trigger event markers.
+//    return AutoBuilder.followPathWithEvents(path);
   }
 }

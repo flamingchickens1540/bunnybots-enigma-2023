@@ -5,8 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.ReplanningConfig;
+//import com.pathplanner.lib.auto.AutoBuilder;
+//import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -45,14 +45,14 @@ public class Drivetrain extends SubsystemBase{
         this.pigeon = pigeon;
         odometry = new DifferentialDriveOdometry(pigeon.getRotation2d(), frontLeft.getSelectedSensorPosition(), frontLeft.getSelectedSensorPosition());
 
-        AutoBuilder.configureRamsete(
-            this::getPose, // Robot pose supplier
-            this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-            this::getWheelSpeeds, // Current ChassisSpeeds supplier
-            this::setVelocity, // Method that will drive the robot given ChassisSpeeds
-            new ReplanningConfig(), // Default path replanning config. See the API for the options here
-            this // Reference to this subsystem to set requirements
-        );
+////        AutoBuilder.configureRamsete(
+//            this::getPose, // Robot pose supplier
+//            this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+//            this::getWheelSpeeds, // Current ChassisSpeeds supplier
+//            this::setVelocity, // Method that will drive the robot given ChassisSpeeds
+//            new ReplanningConfig(), // Default path replanning config. See the API for the options here
+//            this // Reference to this subsystem to set requirements
+//        );
 
         
     }
