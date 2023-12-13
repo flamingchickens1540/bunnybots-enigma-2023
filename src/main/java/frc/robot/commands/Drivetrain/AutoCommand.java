@@ -19,12 +19,12 @@ public class AutoCommand extends SequentialCommandGroup{
         drivetrain.zeroHeading();
 
         Pose2d start = new Pose2d(0,0,new Rotation2d(0));
-        Pose2d end = new Pose2d(3,0,new Rotation2d(180));
+        Pose2d end = new Pose2d(3,0,new Rotation2d(Math.PI));
 
         SmartDashboard.putNumber("pose/startPose", start.getRotation().getDegrees());
         SmartDashboard.putNumber("pose/endPose", end.getRotation().getDegrees());
 
-        PathPlannerTrajectory trajectory = PathPlanner.loadPath("backwardsPath", new PathConstraints(3.5, 2));
+        PathPlannerTrajectory trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 2));
 
         PPRamseteCommand ramseteCommand = new PPRamseteCommand(
             trajectory,

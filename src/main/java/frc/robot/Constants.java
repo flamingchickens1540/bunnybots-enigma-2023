@@ -19,12 +19,13 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
  //TODO Find the correct value for all these constants
 public final class Constants {
-  public static final double KP_DRIVE_VEL = 1;
+  public static final double KP_DRIVE_VEL = 3.2925;
 public static final double KS_VOLTS = 1;
 public static final double KV_VOLT_SECONDS_PER_METER = 1;
 public static final double KA_VOLT_SECONDS_SQUARED_PER_METER = 1;
 public static final double ENCODER_TICKS_PER_METER = 1;
-  public static final double K_TRACKWIDTH_METERS = 1;
+// TODO: I never measured anything (I want to die), so make sure to replace it all :)))))))))
+  public static final double K_TRACKWIDTH_METERS = 0.7;
   public static double DEADZONE = 0.1;
 
   public static class OperatorConstants {
@@ -47,7 +48,7 @@ public static final double ENCODER_TICKS_PER_METER = 1;
     public static final double kvVoltSecondsPerMeter = 1;
     public static final double kaVoltSecondsSquaredPerMeter = 1;
 
-    public static final double kPDriveVel = 1;
+    public static final double kPDriveVel = 3.2925;
 
     public static final double kTrackwidthMeters = 1; // I am going to strangle fab & controls with my bare hands
     public static final DifferentialDriveKinematics kDriveKinematics =
