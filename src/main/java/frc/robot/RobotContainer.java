@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Drivetrain.AutoCommand;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
@@ -14,9 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Drivetrain.DriveCommand;
-import frc.robot.commands.Drivetrain.Drivetrain;
 import frc.robot.commands.Elevator.Elevator;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorUp;
@@ -48,6 +47,8 @@ public class RobotContainer {
   private final Grabber m_grabber =
           new Grabber(m_pcm);
 
+  private final GrabberCommand m_grabberCommand = new GrabberCommand(m_grabber);
+
   private final Drivetrain m_Drivetrain =
           new Drivetrain(new WPI_Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
 
@@ -58,15 +59,6 @@ public class RobotContainer {
     m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
 //    m_Elevator.setDefaultCommand(new ElevatorManual(m_Elevator, m_copilotController));
     m_pcm.enableCompressorDigital();
-
-    // AutoBuilder.configureRamsete(
-    //     this::getPose, // Robot pose supplier
-    //     this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-    //     this::getCurrentSpeeds, // Current ChassisSpeeds supplier
-    //     this::drive, // Method that will drive the robot given ChassisSpeeds
-    //     new ReplanningConfig(), // Default path replanning config. See the API for the options here
-    //     this // Reference to this subsystem to set requirements
-    // );
   }
 
   /**
@@ -89,13 +81,8 @@ public class RobotContainer {
     m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new GrabberCommand(m_grabber));
     m_copilotController.povDown().onTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().onTrue(new ElevatorUp(m_Elevator));
-
-
-
-
-
-
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -103,10 +90,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand(String input) {
-    return null;
-//    PathPlannerPath path = PathPlannerPath.fromPathFile(input);
-
-    // Create a path following command using AutoBuilder. This will also trigger event markers.
-//    return AutoBuilder.followPathWithEvents(path);
+    return new AutoCommand(m_Drivetrain);
   }
 }

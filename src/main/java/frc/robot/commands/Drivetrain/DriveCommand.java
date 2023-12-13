@@ -21,7 +21,7 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        drivetrain.set(0, 0);
+        drivetrain.setPercent(0, 0);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class DriveCommand extends CommandBase {
         rightInput = Math.abs(rightInput) > Constants.DEADZONE ? 0.5*rightInput : 0;
         rightInput = invertDrive ? -rightInput : rightInput;
 
-        drivetrain.set(leftInput, rightInput);
+        drivetrain.setPercent(leftInput, rightInput);
     }
 }

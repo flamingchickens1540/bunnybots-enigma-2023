@@ -19,6 +19,12 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
  //TODO Find the correct value for all these constants
 public final class Constants {
+  public static final double KP_DRIVE_VEL = 1;
+public static final double KS_VOLTS = 1;
+public static final double KV_VOLT_SECONDS_PER_METER = 1;
+public static final double KA_VOLT_SECONDS_SQUARED_PER_METER = 1;
+public static final double ENCODER_TICKS_PER_METER = 1;
+  public static final double K_TRACKWIDTH_METERS = 1;
   public static double DEADZONE = 0.1;
 
   public static class OperatorConstants {
@@ -32,7 +38,7 @@ public final class Constants {
     public static final int FRONT_RIGHT_KEY = 4;
     public static final int BACK_LEFT_KEY = 1;
     public static final int BACK_RIGHT_KEY = 3;
-    public static final double ENCODER_TICKS_PER_METER = 1*2048;
+    public static final double ENCODER_TICKS_PER_METER = 2048;
 
 
     // to be clear, one of us needs to use SI to find these constants
@@ -50,6 +56,7 @@ public final class Constants {
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
     public static final int PIGEON_CAN_ID = 2;
+
   }
 
   public static class ElevatorConstants {
