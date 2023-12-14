@@ -26,6 +26,10 @@ public class Drivetrain extends SubsystemBase{
         rightBack.follow(rightFront);
         leftFront.setNeutralMode(NeutralMode.Brake);
         rightFront.setNeutralMode(NeutralMode.Brake);
+        rightFront.setInverted(true);
+        rightBack.setInverted(true);
+        leftFront.setInverted(false);
+        leftBack.setInverted(false);
         
         this.pigeon = pigeon;
         odometry = new DifferentialDriveOdometry(pigeon.getRotation2d(), 0, 0);

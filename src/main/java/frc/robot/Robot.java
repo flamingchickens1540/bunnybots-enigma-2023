@@ -19,7 +19,7 @@ import frc.robot.commands.Drivetrain.Drivetrain;
  */
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "RamAuto";
-  private static final String kCustomAuto1 = "Nothing";
+  private static final String kCustomAuto1 = "DoNothing";
   private static final String kCustomAuto2 = "InNOut";
   private static final String kCustomAuto3 = "GrabBunny";
   private String m_autoSelected;
@@ -37,11 +37,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto1);
-    m_chooser.addOption("My Auto", kCustomAuto2);
-    m_chooser.addOption("My Auto", kCustomAuto3);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    m_chooser.setDefaultOption("Ram Auto", kDefaultAuto);
+    m_chooser.addOption("Do Nothing", kCustomAuto1);
+//    m_chooser.addOption("In And Out", kCustomAuto2);
+    m_chooser.addOption("Grab Bunny", kCustomAuto3);
+    SmartDashboard.putData("AutoSelector", m_chooser);
   }
 
   /**
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_robotContainer.getAutonomousCommand().schedule();
+    m_robotContainer.getAutonomousCommand(m_chooser.getSelected()).schedule();
   }
 
   /** This function is called periodically during autonomous. */

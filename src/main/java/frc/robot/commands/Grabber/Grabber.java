@@ -9,6 +9,7 @@ public class Grabber extends SubsystemBase {
     private final Solenoid claw;
     public Grabber(PneumaticsControlModule pcm) {
         claw = pcm.makeSolenoid(Constants.GrabberConstants.GRABBER_ID);
+        claw.set(false);
     }
     public void set(boolean setValue) {
         claw.set(setValue);
