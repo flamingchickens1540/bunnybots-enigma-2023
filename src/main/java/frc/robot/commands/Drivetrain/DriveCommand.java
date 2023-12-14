@@ -30,11 +30,11 @@ public class DriveCommand extends CommandBase {
 
         leftInput = controller.getLeftY();
         leftInput = Math.abs(leftInput) > Constants.DEADZONE ? leftInput : 0;
-        leftInput = invertDrive ? -leftInput : leftInput;
+        leftInput = invertDrive ? -rightInput : leftInput;
 
         rightInput = controller.getRightY();
         rightInput = Math.abs(rightInput) > Constants.DEADZONE ? rightInput : 0;
-        rightInput = invertDrive ? -rightInput : rightInput;
+        rightInput = invertDrive ? -leftInput : rightInput;
 
         drivetrain.setPercent(leftInput, rightInput);
     }
