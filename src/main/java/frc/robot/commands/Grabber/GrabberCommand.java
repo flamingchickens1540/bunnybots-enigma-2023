@@ -13,6 +13,4 @@ public class GrabberCommand extends CommandBase {
     public void initialize() {
         grabber.set(!grabber.get());
     }
-
-
 }

@@ -92,19 +92,15 @@ public class AutoCommand extends SequentialCommandGroup{
                     drivetrain::setVolts,
                     drivetrain);
 
-            ElevatorUp upCommand = new ElevatorUp(elevator);
-            ElevatorDown downCommand = new ElevatorDown(elevator);
-            GrabberCommand grabberCommand1 = new GrabberCommand(grabber);
-            GrabberCommand grabberCommand2 = new GrabberCommand(grabber);
 
             drivetrain.resetOdometry(trajectory.getInitialPose());
 
             addCommands(
                 ramCommand,
-                upCommand,
-                new InstantCommand(() -> grabber.set(!grabber.get())),
-                new InstantCommand(() -> grabber.set(!grabber.get())),
-                downCommand,
+                new ElevatorUp(elevator),
+                grabber.setTrue,
+                grabber.setFalse,
+                new ElevatorDown(elevator),
                 new InstantCommand(() -> drivetrain.setPercent(0, 0))
             );
         }
