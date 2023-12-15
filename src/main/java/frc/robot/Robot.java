@@ -22,10 +22,9 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto1 = "DoNothing";
   private static final String kCustomAuto2 = "InNOut";
   private static final String kCustomAuto3 = "GrabBunny";
-  private String m_autoSelected;
+  private static final String kCustomAuto4 = "SprayNPraySeq";
+  private static final String kCustomAuto5 = "SprayNPrayFull";
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
 
   /**
@@ -39,8 +38,10 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_chooser.setDefaultOption("Ram Auto", kDefaultAuto);
     m_chooser.addOption("Do Nothing", kCustomAuto1);
-//    m_chooser.addOption("In And Out", kCustomAuto2);
+    m_chooser.addOption("In And Out", kCustomAuto2);
     m_chooser.addOption("Grab Bunny", kCustomAuto3);
+    m_chooser.addOption("Spray And Pray Sequential", kCustomAuto4);
+    m_chooser.addOption("Spray And Pray Full", kCustomAuto5);
     SmartDashboard.putData("AutoSelector", m_chooser);
   }
 
@@ -83,9 +84,6 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
   }
 
   /** This function is called periodically during operator control. */

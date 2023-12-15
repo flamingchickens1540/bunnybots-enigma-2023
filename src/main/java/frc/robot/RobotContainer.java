@@ -90,6 +90,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand(String autoChoice) {
-    return new AutoCommand(m_Drivetrain, autoChoice, m_Elevator, m_grabber);
+    return new AutoCommand(m_Drivetrain, autoChoice, m_Elevator, m_grabber, m_shooter);
   }
 }
