@@ -5,13 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Drivetrain.ArcadeDriveCommand;
+import frc.robot.commands.Drivetrain.AutoCommand;
+import frc.robot.commands.Drivetrain.DriveCommand;
+import frc.robot.commands.Drivetrain.Drivetrain;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Drivetrain.DriveCommand;
-import frc.robot.commands.Drivetrain.Drivetrain;
 import frc.robot.commands.Elevator.Elevator;
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorUp;
@@ -27,7 +34,6 @@ import frc.robot.commands.Shooter.ShooterCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-// run enable compressor
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   private final CommandGenericHID m_copilotController =
@@ -35,10 +41,8 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  private final Drivetrain m_Drivetrain =
-      new Drivetrain();
   private final Elevator m_Elevator =
-      new Elevator();
+          new Elevator();
   private final PneumaticsControlModule m_pcm =
           new PneumaticsControlModule(OperatorConstants.kPCM_ID);
   private final Shooter m_shooter =
@@ -46,17 +50,21 @@ public class RobotContainer {
   private final Grabber m_grabber =
           new Grabber(m_pcm);
 
+  private final Drivetrain m_Drivetrain =
+          new Drivetrain(new WPI_Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+    if (SmartDashboard.getBoolean("isArcadeDrive", true)) {
+      m_Drivetrain.setDefaultCommand(new ArcadeDriveCommand(m_Drivetrain, m_driverController));
+    }
+    else {
+      m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+    }
 //    m_Elevator.setDefaultCommand(new ElevatorManual(m_Elevator, m_copilotController));
     m_pcm.enableCompressorDigital();
-
-
-
   }
 
   /**
@@ -76,23 +84,18 @@ public class RobotContainer {
     for (int i = 0; i < 5; i++) {
       m_copilotController.button(Constants.ShooterConstants.GUITAR_BUTTON_ID[i]).onTrue(new ShooterCommand(m_shooter, i));
     }
-    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new GrabberCommand(m_grabber));
+    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
     m_copilotController.povDown().onTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().onTrue(new ElevatorUp(m_Elevator));
-
-
-
-
-
-
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return null;
+  public Command getAutonomousCommand(String autoChoice) {
+    return new AutoCommand(m_Drivetrain, autoChoice, m_Elevator, m_grabber, m_shooter);
   }
 }

@@ -21,14 +21,12 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        drivetrain.set(0, 0);
+        drivetrain.setPercent(0, 0);
     }
 
     @Override
     public void execute() {
-        if (controller.getAButtonPressed()) {
-            invertDrive = !invertDrive;
-        }
+        if (controller.getAButtonPressed()) {invertDrive = !invertDrive;}
 
         leftInput = controller.getLeftY();
         leftInput = Math.abs(leftInput) > Constants.DEADZONE ? leftInput : 0;
@@ -41,9 +39,9 @@ public class DriveCommand extends CommandBase {
         rightInput *= 0.5;
 
         if (invertDrive) {
-            drivetrain.set(-leftInput, -rightInput);
+            drivetrain.setPercent(-leftInput, -rightInput);
         } else {
-            drivetrain.set(rightInput, leftInput);
+            drivetrain.setPercent(rightInput, leftInput);
         }
     }
 }
