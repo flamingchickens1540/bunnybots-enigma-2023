@@ -2,6 +2,7 @@ package frc.robot.commands.Grabber;
 
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,7 +21,7 @@ public class Grabber extends SubsystemBase {
         return claw.get();
     }
 
-    public InstantCommand setTrue = new InstantCommand(() -> this.set(true));
-    public InstantCommand setFalse = new InstantCommand(() -> this.set(false));
+    public Command setTrue() {return new InstantCommand(() -> this.set(true));}
+    public Command setFalse() {return new InstantCommand(() -> this.set(false));}
 
 }

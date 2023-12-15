@@ -24,8 +24,8 @@ public class Drivetrain extends SubsystemBase{
     public Drivetrain(WPI_Pigeon2 pigeon){
         leftBack.follow(leftFront);
         rightBack.follow(rightFront);
-        leftFront.setNeutralMode(NeutralMode.Brake);
-        rightFront.setNeutralMode(NeutralMode.Brake);
+        leftFront.setNeutralMode(NeutralMode.Coast);
+        rightFront.setNeutralMode(NeutralMode.Coast);
         rightFront.setInverted(true);
         rightBack.setInverted(true);
         leftFront.setInverted(false);
@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase{
     
     public void setPercent(double leftPercent, double rightPercent){
         leftFront.set(ControlMode.PercentOutput, leftPercent);
-        rightFront.set(ControlMode.PercentOutput, -rightPercent);
+        rightFront.set(ControlMode.PercentOutput, rightPercent);
     }
 
     public Pose2d getPose(){
@@ -73,13 +73,6 @@ public class Drivetrain extends SubsystemBase{
 
     public void zeroHeading(){
         pigeon.setYaw(0);
-    }    
-
-    public TalonFXSensorCollection getLeftSensors(){
-        return leftFront.getSensorCollection();
-    }
-    public TalonFXSensorCollection getRightSensors(){
-        return leftFront.getSensorCollection();
     }
 
     public void brakeOn(){

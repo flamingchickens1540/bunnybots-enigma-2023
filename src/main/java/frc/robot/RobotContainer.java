@@ -7,7 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Drivetrain.ArcadeDriveCommand;
 import frc.robot.commands.Drivetrain.AutoCommand;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.Drivetrain;
@@ -47,8 +50,6 @@ public class RobotContainer {
   private final Grabber m_grabber =
           new Grabber(m_pcm);
 
-  private final GrabberCommand m_grabberCommand = new GrabberCommand(m_grabber);
-
   private final Drivetrain m_Drivetrain =
           new Drivetrain(new WPI_Pigeon2(Constants.DrivetrainConstants.PIGEON_CAN_ID));
 
@@ -56,7 +57,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+    if (SmartDashboard.getBoolean("isArcadeDrive", true)) {
+      m_Drivetrain.setDefaultCommand(new ArcadeDriveCommand(m_Drivetrain, m_driverController));
+    }
+    else {
+      m_Drivetrain.setDefaultCommand(new DriveCommand(m_driverController, m_Drivetrain));
+    }
 //    m_Elevator.setDefaultCommand(new ElevatorManual(m_Elevator, m_copilotController));
     m_pcm.enableCompressorDigital();
   }
@@ -78,7 +84,7 @@ public class RobotContainer {
     for (int i = 0; i < 5; i++) {
       m_copilotController.button(Constants.ShooterConstants.GUITAR_BUTTON_ID[i]).onTrue(new ShooterCommand(m_shooter, i));
     }
-    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new GrabberCommand(m_grabber));
+    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
     m_copilotController.povDown().onTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().onTrue(new ElevatorUp(m_Elevator));
   }

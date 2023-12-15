@@ -35,7 +35,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
     m_chooser.setDefaultOption("Ram Auto", kDefaultAuto);
     m_chooser.addOption("Do Nothing", kCustomAuto1);
     m_chooser.addOption("In And Out", kCustomAuto2);
@@ -43,6 +42,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Spray And Pray Sequential", kCustomAuto4);
     m_chooser.addOption("Spray And Pray Full", kCustomAuto5);
     SmartDashboard.putData("AutoSelector", m_chooser);
+    SmartDashboard.putBoolean("isArcadeDrive", true);
+    m_robotContainer = new RobotContainer();
   }
 
   /**
