@@ -19,12 +19,14 @@ import frc.robot.commands.Drivetrain.Drivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "RamAuto";
-  private static final String kCustomAuto1 = "DoNothing";
+  private static final String kDefaultAuto = "DoNothing";
+  private static final String kCustomAuto1 = "RamAuto";
   private static final String kCustomAuto2 = "InNOut";
   private static final String kCustomAuto3 = "GrabBunny";
   private static final String kCustomAuto4 = "SprayNPraySeq";
   private static final String kCustomAuto5 = "SprayNPrayFull";
+  private static final String kCustomAuto6 = "RamAutoLeft";
+  private static final String kCustomAuto7 = "RamAutoRight";
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private RobotContainer m_robotContainer;
 
@@ -36,8 +38,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_chooser.setDefaultOption("Ram Auto", kDefaultAuto);
-    m_chooser.addOption("Do Nothing", kCustomAuto1);
+    m_chooser.setDefaultOption("Do Nothing", kDefaultAuto);
+    m_chooser.addOption("Ram Auto", kCustomAuto1);
+    m_chooser.addOption("Ram Auto Left", kCustomAuto6);
+    m_chooser.addOption("Ram Auto Right", kCustomAuto7);
     m_chooser.addOption("In And Out", kCustomAuto2);
     m_chooser.addOption("Grab Bunny", kCustomAuto3);
     m_chooser.addOption("Spray And Pray Sequential", kCustomAuto4);
