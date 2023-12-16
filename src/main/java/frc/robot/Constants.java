@@ -23,8 +23,7 @@ public final class Constants {
 public static final double KS_VOLTS = 0.650;
 public static final double KV_VOLT_SECONDS_PER_METER = 2.81;
 public static final double KA_VOLT_SECONDS_SQUARED_PER_METER = 0.224;
-public static final double ENCODER_TICKS_PER_METER = 2048;
-// TODO: I never measured anything (I want to die), so make sure to replace it all :)))))))))
+public static final double ENCODER_TICKS_PER_METER = 49866;
   public static final double K_TRACKWIDTH_METERS = 0.6604;
   public static double DEADZONE = 0.1;
 
@@ -45,9 +44,9 @@ public static final double ENCODER_TICKS_PER_METER = 2048;
 
   public static class ElevatorConstants {
       public static final int MOTOR_ID = 5;
-      public static final double ELEVATOR_ASCENSION_VELOCITY = 0.5;
-      public static final double ELEVATOR_DESCENSION_VELOCITY = -0.5;
-      public static final double MANUAL_SCALING = 0.3;
+      public static final double ELEVATOR_ASCENSION_VELOCITY = 0.9;
+      public static final double ELEVATOR_DESCENSION_VELOCITY = -0.9;
+      public static final double MANUAL_SCALING = 0.5;
       public static final double MANUAL_DEADZONE = 0.1;
   }
   public static class ShooterConstants{

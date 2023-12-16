@@ -27,6 +27,7 @@ public class AutoCommand extends SequentialCommandGroup{
     public AutoCommand(Drivetrain drivetrain, String autoChoice, Elevator elevator, Grabber grabber, Shooter shooter){
         addRequirements(drivetrain);
         drivetrain.zeroHeading();
+        drivetrain.brakeOn();
 
 //        Pose2d start = new Pose2d(0,0,new Rotation2d(0));
 //        Pose2d end = new Pose2d(3,0,new Rotation2d(Math.PI));
@@ -41,11 +42,11 @@ public class AutoCommand extends SequentialCommandGroup{
 
             addCommands(
                     //      new InstantCommand(()-> SmartDashboard.putNumber("navx/endRotation", drivetrain.getPose().getRotation().getDegrees())), common Simon L
-                    new InstantCommand(()-> drivetrain.setPercent(0, 0))
+                    new InstantCommand(()-> drivetrain.setVolts(0, 0))
             );
             break;
         case "GrabBunny":
-            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(3.5, 2));
+            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(3.5, 1));
             PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("UnToTotes", new PathConstraints(3.5, 2));
 
             PPRamseteCommand ramCommand = new PPRamseteCommand(
@@ -83,11 +84,11 @@ public class AutoCommand extends SequentialCommandGroup{
                 grabber.setFalse(),
                 new ElevatorDown(elevator),
                 ramCommand3,
-                new InstantCommand(() -> drivetrain.setPercent(0, 0))
+                new InstantCommand(() -> drivetrain.setVolts(0, 0))
             );
             break;
         case "InNOut":
-            trajectory = PathPlanner.loadPath("InNOut", new PathConstraints(3.5, 2));
+            trajectory = PathPlanner.loadPath("InNOut", new PathConstraints(3.5, 1));
 
             PPRamseteCommand ramCommand2 = new PPRamseteCommand(
                     trajectory,
@@ -107,11 +108,11 @@ public class AutoCommand extends SequentialCommandGroup{
 
             addCommands(
                     ramCommand2,
-                    new InstantCommand(() -> drivetrain.setPercent(0, 0))
+                    new InstantCommand(() -> drivetrain.setVolts(0, 0))
             );
             break;
         case "SprayNPraySeq":
-            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(3.5, 2));
+            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(1.5, 1));
 
             PPRamseteCommand ramCommand4 = new PPRamseteCommand(
                     trajectory,
@@ -140,11 +141,11 @@ public class AutoCommand extends SequentialCommandGroup{
                     sc1,
                     sc2,
                     sc3,
-                    new InstantCommand(() -> drivetrain.setPercent(0, 0))
+                    new InstantCommand(() -> drivetrain.setVolts(0, 0))
             );
             break;
         case "SprayNPrayFull":
-            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(3.5, 2));
+            trajectory = PathPlanner.loadPath("ToTotes", new PathConstraints(3.5, 1));
 
             PPRamseteCommand ramCommand5 = new PPRamseteCommand(
                     trajectory,
@@ -169,12 +170,12 @@ public class AutoCommand extends SequentialCommandGroup{
 
             addCommands(
                     new ParallelCommandGroup(ramCommand5, sc01, sc21, sc31, sc41),
-                    new InstantCommand(() -> drivetrain.setPercent(0, 0))
+                    new InstantCommand(() -> drivetrain.setVolts(0, 0))
             );
             break;
             case "RamAutoLeft":
-                trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 2));
-                PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("SuppRamAutoLeft", new PathConstraints(3.5, 2));
+                trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 1));
+                PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("SuppRamAutoLeft", new PathConstraints(3.5, 1));
 
                 PPRamseteCommand ramseteCommand61 = new PPRamseteCommand(
                         trajectory,
@@ -206,12 +207,12 @@ public class AutoCommand extends SequentialCommandGroup{
                         ramseteCommand61,
                         ramseteCommand62,
                         //      new InstantCommand(()-> SmartDashboard.putNumber("navx/endRotation", drivetrain.getPose().getRotation().getDegrees())), common Simon L
-                        new InstantCommand(()-> drivetrain.setPercent(0, 0))
+                        new InstantCommand(()-> drivetrain.setVolts(0, 0))
                 );
                 break;
             case "RamAutoRight":
-                trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 2));
-                PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("SuppRamAutoRight", new PathConstraints(3.5, 2));
+                trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 1));
+                PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("SuppRamAutoRight", new PathConstraints(3.5, 1));
 
                 PPRamseteCommand ramseteCommand71 = new PPRamseteCommand(
                         trajectory,
@@ -243,11 +244,11 @@ public class AutoCommand extends SequentialCommandGroup{
                         ramseteCommand71,
                         ramseteCommand72,
                         //      new InstantCommand(()-> SmartDashboard.putNumber("navx/endRotation", drivetrain.getPose().getRotation().getDegrees())), common Simon L
-                        new InstantCommand(()-> drivetrain.setPercent(0, 0))
+                        new InstantCommand(()-> drivetrain.setVolts(0, 0))
                 );
                 break;
         default:
-            trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 2));
+            trajectory = PathPlanner.loadPath("RamAuto", new PathConstraints(3.5, 1));
 
             PPRamseteCommand ramseteCommand6 = new PPRamseteCommand(
                     trajectory,
@@ -266,10 +267,11 @@ public class AutoCommand extends SequentialCommandGroup{
             addCommands(
                     ramseteCommand6,
                     //      new InstantCommand(()-> SmartDashboard.putNumber("navx/endRotation", drivetrain.getPose().getRotation().getDegrees())), common Simon L
-                    new InstantCommand(()-> drivetrain.setPercent(0, 0))
+                    new InstantCommand(()-> drivetrain.setVolts(0, 0))
             );
             break;
         }
+//
 
     }
     

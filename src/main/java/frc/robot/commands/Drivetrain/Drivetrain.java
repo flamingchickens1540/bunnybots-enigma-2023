@@ -3,6 +3,7 @@ package frc.robot.commands.Drivetrain;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,6 +21,7 @@ public class Drivetrain extends SubsystemBase{
     private final TalonFX leftBack = new TalonFX(Constants.DrivetrainConstants.BACK_LEFT_KEY);
     private final WPI_Pigeon2 pigeon;
     private final DifferentialDriveOdometry odometry;
+    public boolean invertDrive = false;
 
     public Drivetrain(WPI_Pigeon2 pigeon){
         leftBack.follow(leftFront);
@@ -30,6 +32,8 @@ public class Drivetrain extends SubsystemBase{
         rightBack.setInverted(true);
         leftFront.setInverted(false);
         leftBack.setInverted(false);
+
+        invertDrive = SmartDashboard.getBoolean("initInvertDrive", false);
         
         this.pigeon = pigeon;
         odometry = new DifferentialDriveOdometry(pigeon.getRotation2d(), 0, 0);
@@ -45,8 +49,14 @@ public class Drivetrain extends SubsystemBase{
     }
     
     public void setPercent(double leftPercent, double rightPercent){
-        leftFront.set(ControlMode.PercentOutput, leftPercent);
-        rightFront.set(ControlMode.PercentOutput, rightPercent);
+        if (invertDrive) {
+            leftFront.set(ControlMode.PercentOutput, -rightPercent);
+            rightFront.set(ControlMode.PercentOutput, -leftPercent);
+        }
+        else {
+            leftFront.set(ControlMode.PercentOutput, leftPercent);
+            rightFront.set(ControlMode.PercentOutput, rightPercent);
+        }
     }
 
     public Pose2d getPose(){
@@ -54,13 +64,19 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void setVolts(double leftVolts, double rightVolts){
-        leftFront.set(ControlMode.PercentOutput, leftVolts/12);
-        rightFront.set(ControlMode.PercentOutput, rightVolts/12);
+        if (invertDrive) {
+            leftFront.set(ControlMode.PercentOutput, -rightVolts/12);
+            rightFront.set(ControlMode.PercentOutput, -leftVolts/12);
+        }
+        else {
+            leftFront.set(ControlMode.PercentOutput, leftVolts/12);
+            rightFront.set(ControlMode.PercentOutput, rightVolts/12);
+        }
     }
     public DifferentialDriveWheelSpeeds getWheelSpeeds(){
         return new DifferentialDriveWheelSpeeds(
-                leftFront.getSelectedSensorVelocity()*10/Constants.ENCODER_TICKS_PER_METER,
-                rightFront.getSelectedSensorVelocity()*10/Constants.ENCODER_TICKS_PER_METER
+                leftFront.getSelectedSensorVelocity()/Constants.ENCODER_TICKS_PER_METER,
+                rightFront.getSelectedSensorVelocity()/Constants.ENCODER_TICKS_PER_METER
         );
     }
 

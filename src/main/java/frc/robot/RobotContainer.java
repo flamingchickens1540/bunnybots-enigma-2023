@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Elevator.Elevator;
-import frc.robot.commands.Elevator.ElevatorDown;
-import frc.robot.commands.Elevator.ElevatorUp;
+import frc.robot.commands.Elevator.*;
 import frc.robot.commands.Grabber.Grabber;
 import frc.robot.commands.Grabber.GrabberCommand;
 import frc.robot.commands.Shooter.Shooter;
@@ -85,8 +83,10 @@ public class RobotContainer {
       m_copilotController.button(Constants.ShooterConstants.GUITAR_BUTTON_ID[i]).onTrue(new ShooterCommand(m_shooter, i));
     }
     m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
-    m_copilotController.povDown().onTrue(new ElevatorDown(m_Elevator));
-    m_copilotController.povUp().onTrue(new ElevatorUp(m_Elevator));
+    m_copilotController.povDown().whileTrue(new ElevatorDown(m_Elevator));
+    m_copilotController.povUp().whileTrue(new ElevatorUp(m_Elevator));
+    m_copilotController.button(7).onTrue(m_Elevator.stopElevator());
+    m_copilotController.button(8).onTrue(m_Elevator.stopElevator());
   }
 
 

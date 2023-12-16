@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto7 = "RamAutoRight";
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private RobotContainer m_robotContainer;
+  public boolean hasStartedAuto = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Spray And Pray Full", kCustomAuto5);
     SmartDashboard.putData("AutoSelector", m_chooser);
     SmartDashboard.putBoolean("isArcadeDrive", true);
+    SmartDashboard.putBoolean("initInvertDrive", false);
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
   }
@@ -78,7 +80,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_robotContainer.getAutonomousCommand(m_chooser.getSelected()).schedule();
+//    if (!hasStartedAuto) {
+//      hasStartedAuto = true;
+      m_robotContainer.getAutonomousCommand(m_chooser.getSelected()).schedule();
+//    }
   }
 
   /** This function is called periodically during autonomous. */

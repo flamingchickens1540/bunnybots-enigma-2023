@@ -11,9 +11,8 @@ public class ArcadeDriveCommand extends CommandBase {
 
     private final CommandXboxController xBoxController;
 
-    private final SlewRateLimiter leftRateLimiter = new SlewRateLimiter(1);
-    private final SlewRateLimiter rightRateLimiter = new SlewRateLimiter(1);
-    public boolean invertDrive = false;
+    private final SlewRateLimiter leftRateLimiter = new SlewRateLimiter(0.75);
+    private final SlewRateLimiter rightRateLimiter = new SlewRateLimiter(0.75);
 
     public ArcadeDriveCommand(Drivetrain drivetrain, CommandXboxController xBoxController) {
         this.drivetrain = drivetrain;
@@ -22,10 +21,11 @@ public class ArcadeDriveCommand extends CommandBase {
     }
 
     public void execute() {
-        if (xBoxController.getHID().getAButtonPressed()) {invertDrive = !invertDrive;}
+        if (xBoxController.getHID().getAButtonPressed()) {drivetrain.invertDrive = !drivetrain.invertDrive;}
 
-        double throttle = MathUtil.applyDeadband(-xBoxController.getLeftY(), Constants.DEADZONE);
-        double turn = MathUtil.applyDeadband(xBoxController.getRightX(), Constants.DEADZONE);
+        double throttle = MathUtil.applyDeadband(-xBoxController.getLeftY(), Constants.DEADZONE)/2;
+        if (drivetrain.getWheelSpeeds().leftMetersPerSecond > 0.5 || drivetrain.getWheelSpeeds().rightMetersPerSecond > 0.5) {throttle =0;}
+        double turn =MathUtil.applyDeadband(xBoxController.getRightX(), Constants.DEADZONE)/3;
         double left = leftRateLimiter.calculate(
                 MathUtil.clamp(throttle + turn,-1, 1)
         );
@@ -33,8 +33,7 @@ public class ArcadeDriveCommand extends CommandBase {
                 MathUtil.clamp(throttle - turn, -1, 1)
         );
 
-        if (invertDrive) {drivetrain.setPercent(-right, -left);}
-        else {drivetrain.setPercent(left, right);}
+        drivetrain.setPercent(left, right);
     }
 
     @Override

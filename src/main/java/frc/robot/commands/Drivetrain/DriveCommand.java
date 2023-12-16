@@ -10,11 +10,11 @@ public class DriveCommand extends CommandBase {
     private final XboxController controller;
     public double leftInput;
     public double rightInput;
-    public boolean invertDrive = false;
 
     public DriveCommand(CommandXboxController controller, Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
         this.controller = controller.getHID();
+        drivetrain.brakeOff();
 
         addRequirements(this.drivetrain);
     }
@@ -26,7 +26,8 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (controller.getAButtonPressed()) {invertDrive = !invertDrive;}
+        if (controller.getAButtonPressed()) {drivetrain.invertDrive = !drivetrain.invertDrive;}
+
 
         leftInput = controller.getLeftY();
         leftInput = Math.abs(leftInput) > Constants.DEADZONE ? leftInput : 0;
@@ -38,10 +39,6 @@ public class DriveCommand extends CommandBase {
         rightInput += controller.getLeftTriggerAxis() - controller.getRightTriggerAxis();
         rightInput *= 0.5;
 
-        if (invertDrive) {
-            drivetrain.setPercent(-leftInput, -rightInput);
-        } else {
-            drivetrain.setPercent(rightInput, leftInput);
-        }
+        drivetrain.setPercent(leftInput, rightInput);
     }
 }
