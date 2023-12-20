@@ -34,8 +34,8 @@ import frc.robot.commands.Shooter.ShooterCommand;
 public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-  private final CommandGenericHID m_copilotController =
-          new CommandGenericHID(OperatorConstants.kCopilotControllerPort);
+  private final CommandGuitarHeroController m_copilotController =
+          new CommandGuitarHeroController(OperatorConstants.kCopilotControllerPort);
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
@@ -80,13 +80,13 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     for (int i = 0; i < 5; i++) {
-      m_copilotController.button(Constants.ShooterConstants.GUITAR_BUTTON_ID[i]).onTrue(new ShooterCommand(m_shooter, i));
+      m_copilotController.button1().onTrue(new ShooterCommand(m_shooter, i));
     }
-    m_copilotController.axisGreaterThan(4, Constants.ShooterConstants.GUITAR_DONGLE_DEADZONE).onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
+    m_copilotController.triggerAxis().onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
     m_copilotController.povDown().whileTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().whileTrue(new ElevatorUp(m_Elevator));
-    m_copilotController.button(7).onTrue(m_Elevator.stopElevator());
-    m_copilotController.button(8).onTrue(m_Elevator.stopElevator());
+    m_copilotController.button7().onTrue(m_Elevator.stopElevator());
+    m_copilotController.button8().onTrue(m_Elevator.stopElevator());
   }
 
 
