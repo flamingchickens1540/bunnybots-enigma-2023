@@ -79,9 +79,13 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    for (int i = 0; i < 5; i++) {
-      m_copilotController.button1().onTrue(new ShooterCommand(m_shooter, i));
-    }
+
+      m_copilotController.button1().onTrue(new ShooterCommand(m_shooter, 1));
+      m_copilotController.button2().onTrue(new ShooterCommand(m_shooter, 2));
+      m_copilotController.button3().onTrue(new ShooterCommand(m_shooter, 3));
+      m_copilotController.button4().onTrue(new ShooterCommand(m_shooter, 4));
+      m_copilotController.button5().onTrue(new ShooterCommand(m_shooter, 5));
+    
     m_copilotController.triggerAxis().onTrue(new InstantCommand(() -> m_grabber.set(!m_grabber.get())));
     m_copilotController.povDown().whileTrue(new ElevatorDown(m_Elevator));
     m_copilotController.povUp().whileTrue(new ElevatorUp(m_Elevator));
